@@ -17,7 +17,7 @@ import java.util.Queue;
  * in questo modo ho una coda ordinata in modo decrescente (secondo il compareTo di Element )
  * 
  * A questo punto il gioco è fatto, mi basta tenere un Thread corrente che esegue ogni runable della coda, 1 alla volta
- * all'interno di un ciclo while che continua fin quando la coda è piena o fin quando non viene chiamato il metodo stop.
+ * all'interno di un ciclo while che continua fin quando la coda non è vuota o fin quando non viene chiamato il metodo stop.
  * 
  * Per sincronizzare stop e start ho utilizzato la variabile isOk, che alla fine di start viene messa a true
  * perchè una volta interrotto start, dopo posso richiamarlo.
