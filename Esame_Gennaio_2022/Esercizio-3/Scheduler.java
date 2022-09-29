@@ -67,9 +67,9 @@ public class Scheduler {
 					}
 				}
 			};
+			isOk = true;
 		}.start();
 
-		isOk = true;
 	}
 
 	public void stop () {
