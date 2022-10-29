@@ -30,6 +30,7 @@ public class Scheduler {
 
 	private Queue<Element> q = new PriorityQueue<>(); //Element contiene un Runnable ed un int
 	private volatile boolean isOk = true;
+	private volatile boolean callStart = false;
 	private Thread currentTask;
 
 	synchronized void addTask(Runnable r, int priority) {
@@ -40,16 +41,20 @@ public class Scheduler {
 	}
 
 	public void start () {
+		if(callStart)
+			return;
 		new Thread() {
-			
 			public void run() {
+
+				synchronized (this) {
+					callStart = true;
+				}
+
 				while(isOk) {
 					synchronized (q) {
 						if(q.isEmpty()) 
 							return;
 					}
-					
-					synchronized (this) {
 						currentTask = new Thread( () -> {
 							Runnable runTask = null;
 							synchronized (q) {
@@ -59,22 +64,23 @@ public class Scheduler {
 							}
 							runTask.run();
 						});
-	
+
 						currentTask.start();
 						try {
 							currentTask.join();
 						} catch (InterruptedException e) {e.printStackTrace();}
 					}
-				}
+				callStart = false;
+				isOk = true;
 			};
-			isOk = true;
+			// callStart = false;
 		}.start();
 
 	}
 
 	public void stop () {
-		isOk = false;
 		synchronized (this) {
+			isOk = false;
 			if(currentTask != null && !currentTask.isInterrupted())
 				currentTask.interrupt();
 		}
