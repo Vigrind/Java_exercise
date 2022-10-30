@@ -1,0 +1,8 @@
+1) F
+2) V
+3) V
+4) F è falsa perchè synchronized offre garanzie di mutua esclusione,
+	 quindi anche se le operazioni vengono invertite non è un problema
+	 perchè le esegue solo un thread alla volta.
+	 Per essere più chiari, si le instruzioni in un blocco synchronized possono
+	 comunque essere invertite dalla JVM o CPU

@@ -1,0 +1,16 @@
+credo che le risposte giuste siano
+1 -d
+2 -e
+
+La -a anche va bene, ma perchè sincronizzare
+tutto il ciclo quando gli elementi che vengono sovrascritti
+sono quelli nella posizione i-esima?
+
+La -b non può funzionare perchè synchronized ha bisogno
+del monitor di qualche oggetto
+
+Per la -c vale lo stesso discorso di -a
+La -f è sbagliata, quando si fa una wait bisogna sempre avere un controllo con il ciclo while
+perchè potrebbero essere spurious wakeup. In aggiunta avrebbe la stessa funzione della risposta -e,
+nel senso che si attende fin quando non si completa l'operazione Util.array[i] *=2, ma con il synchronized
+della risposta -e abbiamo lo stesso comportamento
